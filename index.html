@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB1GGJ05EN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TB1GGJ05EN');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TradePro - Acesso Restrito</title>
@@ -71,13 +80,18 @@
 
             if (login === senhaMestra) {
                 document.body.style.display = "flex"; // Libera o acesso
+                // Registro de login bem-sucedido no Analytics
+                gtag('event', 'login_sucesso', { 'metodo': 'senha_manual' });
             } else {
                 alert("Senha incorreta. Acesso negado.");
+                // Registro de erro de login no Analytics
+                gtag('event', 'login_erro', { 'metodo': 'senha_incorreta' });
+                
                 document.body.innerHTML = `
                     <div class="max-w-md w-full text-center p-8 glass rounded-3xl border-red-500/30">
                         <h2 class="text-2xl font-bold text-red-400 mb-4">Acesso Bloqueado</h2>
                         <p class="text-slate-400 mb-6">Esta ferramenta contém dados estratégicos e é de uso exclusivo.</p>
-                        <button onclick="location.reload()" class="px-6 py-2 bg-white/10 hover:bg-white/20 rounded-xl transition-all">Tentar Novamente</button>
+                        <button onclick="location.reload()" class="px-6 py-2 bg-white/10 hover:bg-white/20 rounded-xl transition-all text-white">Tentar Novamente</button>
                     </div>
                 `;
                 document.body.style.display = "flex";
